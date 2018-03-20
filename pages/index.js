@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Button } from "semantic-ui-react";
 import factory from "../ethereum/factory";
 import Layout from "../components/Layout";
+import { Link } from "../routes";
 
 // class based component
 class CampaignIndex extends Component {
@@ -20,7 +21,11 @@ class CampaignIndex extends Component {
 		const items = this.props.campaigns.map(address => {
 			return {
 				header: address,
-				description: <a>View campaign</a>,
+				description: (
+					<Link route={`/campaigns/${address}`}>
+						<a>View campaign</a>
+					</Link>
+				),
 				fluid: true
 			};
 		});
@@ -28,24 +33,22 @@ class CampaignIndex extends Component {
 	}
 
 	render() {
-		//link refering css here is because Next does not support css config
-		//Normally reference to link tags should be on the Head of the Html tag,
-		//but with Next we do not have an easy access to our default Html document, as instead, Next generate one for us
 		return (
 			//everything inside the Layout tags will be passed to the Layout component as props.children
 			<Layout>
 				<div>
-					<link
-						rel="stylesheet"
-						href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
-					/>
 					<h3>Open Campaigns</h3>
-					<Button
-						floated="right"
-						content="Create Campaign"
-						icon="add circle"
-						primary
-					/>
+					<Link route="/campaigns/new">
+						<a>
+							<Button
+								floated="right"
+								content="Create Campaign"
+								icon="add circle"
+								primary
+							/>
+						</a>
+					</Link>
+
 					{this.renderCampaigns()}
 				</div>
 			</Layout>

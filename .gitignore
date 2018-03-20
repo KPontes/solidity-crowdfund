@@ -1,4 +1,4 @@
-node_modules/
 .next/
+node_modules/
 ethereum/build/address
 server/config/config.json
