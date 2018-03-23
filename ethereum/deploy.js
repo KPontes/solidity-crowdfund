@@ -11,9 +11,7 @@ const web3 = new Web3(provider);
 
 //just use a function in order to be able to use async await
 const deploy = async () => {
-	console.log("Before getAccounts");
 	const accounts = await web3.eth.getAccounts();
-	console.log("After getAccounts");
 
 	console.log("Attempting to deploy from account", accounts[0]);
 

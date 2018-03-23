@@ -1,7 +1,10 @@
 const routes = require("next-routes")();
 
+//relative path from the pages directory
 routes
 	.add("/campaigns/new", "/campaigns/new")
-	.add("/campaigns/:address", "/campaigns/show"); //relative path from the pages directory
+	.add("/campaigns/:address", "/campaigns/show")
+	.add("/campaigns/:address/requests", "/campaigns/requests/index")
+	.add("/campaigns/:address/requests/new", "/campaigns/requests/new");
 
 module.exports = routes;
