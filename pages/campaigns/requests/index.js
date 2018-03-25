@@ -11,7 +11,7 @@ class RequestIndex extends Component {
 		const { address } = props.query;
 		const campaign = Campaign(address);
 
-		const requestCount = await campaign.methods.getRequestsCount().call();
+		const requestsCount = await campaign.methods.getRequestsCount().call();
 		const approversCount = await campaign.methods.approversCount().call();
 
 		//At this point Solidity does not allow return call of Array of Structures.
@@ -19,14 +19,14 @@ class RequestIndex extends Component {
 		//Promisse.all will make the return be one shot at the end
 		//the fill method creates the array slots from 0 to requestCount-1.
 		const requests = await Promise.all(
-			Array(parseInt(requestCount))
+			Array(parseInt(requestsCount))
 				.fill()
 				.map((element, index) => {
 					return campaign.methods.requests(index).call()
 				})
 		);
 		
-		return { address, requests, requestCount, approversCount };
+		return { address, requests, requestsCount, approversCount };
 	}
 
 	renderRows() {
@@ -51,7 +51,7 @@ class RequestIndex extends Component {
 				<h3>Requests</h3>
 				<Link route={`/campaigns/${this.props.address}/requests/new`}>
 					<a>
-						<Button primary> Add Request </Button>
+						<Button primary floated="right" style={{marginBottom:10}}> Add Request </Button>
 					</a>
 				</Link>
 
@@ -70,7 +70,9 @@ class RequestIndex extends Component {
 			    <Body>
 			    	{this.renderRows()}
 			    </Body>	
-			  </Table>		
+			  </Table>
+
+			  <div>Found {this.props.requestsCount} requests</div>
 
 			</Layout>
 		);
